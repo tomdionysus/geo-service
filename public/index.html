@@ -1,0 +1,115 @@
+
+<html>
+  <head>
+    <title>GeoService</title>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+
+  <body style="">
+    <div class="container">
+      <div class="hero-unit">
+        <h1>GeoService</h1>
+        <h2>Geographic Information Service</h2>
+        <p>GeoService is a <strong>PROTOTYPE</strong>. Please do not use in production Applications.</p>
+        <p><em>v0.0.1</em></p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="content" style="margin-left:50px;">
+        <h2>Introduction</h2>
+        <p>GeoService is a fast and lightweight service intended to provide geographic data, including:</p>
+        <ul>
+            <li>UN M.49 Regions</li>
+            <li>ISO 3166-1 Countries</li>
+            <li>ISO 3166-2 Country Subdivisions</li>
+            <li>ISO 4217 Currency Codes</li>
+            <li>ISO 639 Language Codes</li>
+            <li>IP to Country Mapping</li>
+        </ul>
+        <p>GeoService also provides this data in a relational sense, i.e. it is possible to query, for example:</p>
+        <ul>
+            <li><a href="/countries?default_currency_code=EUR">All countries using the Euro</a></li>
+            <li><a href="/subdivisions?country_code_alpha_2=US&category=state">All states in the USA</a></li>
+            <li><a href="/regions/002?include=countries">All regions and their countries in Africa</a></li>
+            <li><a href="/languages/pt?include=countries">All countries with Portuguese as an official language</a></li>
+            <li><a href="/geoip/212.67.202.4">The country for the IP address 212.67.202.4</a></li>
+        </ul>
+
+        <h2>JSON API</h2>
+        <p>Use the resources detailed here as a RESTful JSON resource, i.e. the GET verb and Accept: application/json</p>
+
+        <h2>General API</h2>
+        <p>Most resources can be accessed as follows:</p>
+        <ul>
+            <li>/:resource_name - Returns an array of all entities.</li>
+            <li>/:resource_name/:code - Returns a single entity.</li>
+            <li>/:resource_name?key=value<em>&amp;key2=value2...</em> - Returns an array of all entities where all keys match all values .</li>
+            <li>/:resource_name?include=relation<em>,relation2...</em> - Returns an array of all entities, including relations as subobjects.</li>
+            <li>/:resource_name/:code/?include=relation<em>,relation2...</em> - Returns a single entity, including relations as subobjects.</li>
+            <li>/:resource_name?exclude=field<em>,field2...</em> - Returns an array of all entities, excluding specific fields.</li>
+            <li>/:resource_name/:code?exclude=field<em>,field2...</em> - Returns a single entity, excluding specific fields.</li>
+        </ul>
+
+        <h2>Resources</h2>
+
+        <h3>Regions</h3>
+        <p><strong>Resource:</strong> <a href="/regions">/regions</a></p>
+        <p>Regions represent geographical areas, e.g. continents and major landmasses. Regions can be nested.</p>
+        <p>Relations available using <em>include</em>:</p>
+        <ul>
+            <li>countries - <a href="/regions?include=countries">/countries?include=currency</a></li>
+            <li>regions - <a href="/regions?include=subregions">/regions?include=subregions</a></li>
+        </ul>
+
+        <h3>Countries</h3>
+        <p><strong>Resource:</strong> <a href="/countries">/countries</a></p>
+        <p>Countries respresent geopolitical entities.</p>
+        <p>Relations available using <em>include</em>:</p>
+        <ul>
+            <li>currency - <a href="/countries?include=currency">/countries?include=currency</a></li>
+            <li>regions - <a href="/countries?include=regions">/countries?include=regions</a></li>
+            <li>subdivisions - <a href="/countries?include=subdivisions">/countries?include=subdivisions</a></li>
+            <li>languages - <a href="/countries?include=languages">/languages?include=languages</a></li>
+        </ul>
+        <p>Subresources:</p>
+        <ul>
+            <li>subdivision - /countries/:country_code_alpha_2/:subdivsion_code e.g. <a href="/countries/AU/AU-NSW">/countries/AU/AU-NSW</a></li>
+        </ul>
+
+        <h3>Subdivisions</h3>
+        <p><strong>Resource:</strong> /subdivisions/:subdivision_code e.g. <a href="/subdivisions/ENG">/subdivisions/ENG</a></p>
+        <p>Subdivisions represent subdivisions within a country, e.g. states, provinces, protectorates and the like. Subdivisions can be nested.</p>
+        <p>Relations available using <em>include</em>:</p>
+        <ul>
+            <li>subdivisions - e.g. <a href="/subdivisions/ENG?include=subdivisions">/subdivisions/ENG?include=subdivision</a></li>
+        </ul>
+
+        <h3>Currencies</h3>
+        <p><strong>Resource:</strong> <a href="/currencies">/currencies</a></p>
+        <p>Currencies represent the currencies in use globally.</p>
+        <p>Relations available using <em>include</em>:</p>
+        <ul>
+            <li>countries - <a href="/currencies?include=countries">/currencies?include=countries</a></li>
+        </ul>
+
+        <h3>Languages</h3>
+        <p><strong>Resource:</strong> <a href="/languages">/languages</a></p>
+        <p>Currencies represent the languages in use globally.</p>
+        <p>Relations available using <em>include</em>:</p>
+        <ul>
+            <li>countries - <a href="/languages?include=countries">/languages?include=countries</a></li>
+        </ul>
+
+        <h3>GeoIP</h3>
+        <p><strong>Resource:</strong> /geoip/<em>:ip_address</em></p>
+        <p>Get the ISO3166-1 Country Code for a given IP4 Address in xxx.xxx.xxx.xxx format.</p>
+        <p>No relations are available on this resource.</p>
+        
+        <p><br></p>
+
+        <p><em>Created and Maintained by <a href="http://bigcommerce.com">Bigcommerce Pty Ltd</a></em></p>
+      </div>
+    </div>
+  </body>
+</html>

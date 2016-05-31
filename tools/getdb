@@ -1,0 +1,1 @@
+mysqldump geo -u root --default-character-set=utf8 > data/install.sql
